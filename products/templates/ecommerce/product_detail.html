@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>{{ product.name }}</title>
+{% endblock %}
+
+{% block special_css %}
+    <link rel="stylesheet" href="{% static 'product_details.css' %}">
+{% endblock %}
+
+{% block content %}
+    <nav>
+        <a href="/">Каталог</a> /
+        <span>{{ product.name }}</span>
+    </nav>
+
+    <div class="product-container">
+        {% if product.discount %}
+            <div class="discount-badge">-{{ product.discount }}%</div>
+        {% endif %}
+
+        <h1>{{ product.name }}</h1>
+
+        <div class="price">
+            <span class="new-price">{{ product.total_price }} ₸</span>
+        </div>
+
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+        {% endif %}
+
+        <p class="category-label">Категория: {{ product.category }}</p>
+
+        <div class="product-actions">
+            {% if user.is_authenticated %}
+                <a class="btn btn-primary" href="{% url 'review_create' product.pk %}">Добавить отзыв</a>
+            {% endif %}
+
+            {% if perms.products.change_product %}
+                <a href="{% url 'edit_product' product.pk %}" class="edit-btn">Редактировать</a>
+            {% endif %}
+        </div>
+
+        <hr>
+        <h2>Отзывы</h2>
+        <div id="reviews-list">
+            <p>Загрузка отзывов...</p>
+        </div>
+    </div>
+
+    <script>
+    const currentUserId = {{ user.id|default:"null" }};
+    const isStaff = {{ user.is_staff|yesno:"true,false" }};
+
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("/api/products/{{ product.id }}/comments/")
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById("reviews-list");
+                container.innerHTML = "";
+
+                if (data.length === 0) {
+                    container.innerHTML = "<p>Пока нет отзывов.</p>";
+                }
+
+                data.forEach(review => {
+                    const div = document.createElement("div");
+
+                    let editLink = "";
+                    if (currentUserId === review.user_id || isStaff === "true") {
+                        editLink = `<a href="/product/{{ product.id }}/reviews/${review.id}/">Изменить отзыв</a>`;
+                    }
+
+                    div.innerHTML = `
+                        <div class="review">
+                            <strong class="text-info">Автор:</strong> ${review.user_name}<br>
+                            <strong class="text-info">Комментарий:</strong> ${review.text}<br>
+                            ${editLink}
+                            <hr>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            })
+            .catch(err => {
+                document.getElementById("reviews-list").innerHTML = "<p>Ошибка загрузки отзывов</p>";
+                console.error(err);
+            });
+    });
+</script>
+
+{% endblock %}

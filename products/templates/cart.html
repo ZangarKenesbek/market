@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Корзина</h2>
+
+{% if cart_items %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Товар</th>
+                <th>Цена</th>
+                <th>Количество</th>
+                <th>Итого</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.product.total_price }} ₸</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.total_price }} ₸</td>
+                    <td>
+                        <a href="{% url 'decrease_quantity' item.product.id %}" class="btn btn-outline-secondary btn-sm">➖</a>
+                        <a href="{% url 'increase_quantity' item.product.id %}" class="btn btn-outline-secondary btn-sm">➕</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+<form action="{% url 'submit_cart' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success">Отправить заказ</button>
+</form>
+    <a href="{% url 'clear_cart' %}" class="btn btn-danger">Очистить корзину</a>
+{% else %}
+    <p>Ваша корзина пуста.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <title>Products</title>
+{% endblock %}
+{% block special_css %}
+    <link href="{% static 'products_list.css' %}" rel="stylesheet"/>
+{% endblock %}
+{% block content %}
+    <div class="product-list">
+        <div class="categories">
+            {% if search %}
+                <a href="/" class="category-btn {% if not category_filter %}selected{% endif %}">
+                    Все товары
+                </a>
+            {% endif %}
+            {% for category in categories %}
+                <a href="?category={{ category.category }}"
+                   class="category-btn {% if category.category == category_filter %}selected{% endif %}">
+                    {{ category.category }}
+                </a>
+            {% endfor %}
+        </div>
+
+        {% for product in products %}
+            <div class="product-card">
+                <div class="discount-badge">-{{ product.discount }}%</div>
+                <a href="/product/{{ product.id }}/" class="product-name">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    {% endif %}
+                    <p>{{ product.name }}</p>
+
+                    <p class="old-price">{{ product.price }} тг</p>
+                    <p class="new-price">{{ product.total_price|floatformat:0 }} тг</p>
+                </a>
+
+                <!-- Кнопка/иконка корзины -->
+                <div class="add-to-cart">
+                    <a href="{% url 'add_to_cart' product.id %}">
+                        <img src="{% static 'icons/cart-icon.png' %}" alt="Добавить в корзину" class="cart-icon">
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}

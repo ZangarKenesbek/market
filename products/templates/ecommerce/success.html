@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <title>Успех!</title>
+{% endblock %}
+{% block content %}
+    <div style="margin-left: 60px; margin-top: 10px">
+        <h2>Форма успешно отправлена!</h2>
+        <a href="{% url 'home' %}">На главную</a>
+    </div>
+{% endblock %}

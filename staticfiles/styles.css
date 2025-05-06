@@ -1,0 +1,79 @@
+
+.page-header {
+  padding: 1.3rem;
+  display: flex;
+  justify-content: space-between;
+}
+.logo {
+  align-self: center;
+  margin-left: 1.2rem;
+  font-size: 2.5rem;
+}
+
+.nav-bar {
+  margin: auto;
+}
+
+.nav-bar a {
+  padding: 1.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: #2D2F32;
+}
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-icon {
+  cursor: pointer;
+  display: none;
+}
+
+button {
+  font-size: 1rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0.9rem;
+}
+
+.user-panel{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 65px;
+  padding-right: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: #2D2F32;
+}
+.nav-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+}
+
+.nav-cart-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.nav-cart-icon:hover {
+  transform: scale(1.1);
+}
+
+.fa-shopping-cart {
+  color: #2D2F32;
+  transition: transform 0.2s ease;
+}
+
+.fa-shopping-cart:hover {
+  transform: scale(1.1);
+  color: #ff007f;
+}

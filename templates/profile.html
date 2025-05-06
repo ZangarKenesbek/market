@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+
+
+{% block heading %}Profile{% endblock %}
+
+{% block content %}
+
+<style>
+.flexrow { display: flex;
+           border: 2px black;
+}
+.flexrow > div { flex: 1; }
+
+.infocell {
+  border: 2px solid #e4095a;
+  border-radius: 25px;
+  background-color: white;
+  padding: 5px;
+  margin: 20px 5px 5px 5px;
+}
+</style>
+
+  <div class="flexrow" >
+    <div class="infocell" >
+      <p>Profile</p>
+      <p>
+          Username: {{ request.user.username }} <br>
+          Name: {{ request.user.first_name }} {{ request.user.last_name }}<br>
+          Date Joined: {{ request.user.date_joined }} <br>
+          Email: {{ request.user.email }}<br>
+          Last Login: {{ request.user.last_login }}<br>
+      </p>
+    </div>
+    <div class="infocell">
+    <p>Viewed Products</p>
+    <p>
+    {% for product_id, product_name in request.session.viewed_products %}
+        <a href="/product/{{ product_id }}">{{ product_name }}</a><br>
+    {% empty %}
+        No recently viewed products found.
+    {% endfor %}
+    </p>
+</div>
+  </div>
+<a href="{% url 'add_product' %}">
+  <button>Добавить продукт</button>
+</a>
+
+<a href="{% url 'add_category' %}">
+  <button>Добавить категорию</button>
+</a>
+
+
+{% endblock %}

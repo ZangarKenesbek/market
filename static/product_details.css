@@ -1,0 +1,65 @@
+body {
+
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    color: #333;
+}
+
+nav {
+    padding: 40px;
+    font-size: 14px;
+    color: gray;
+    margin-bottom: 20px;
+}
+
+.product-container {
+    padding: 40px;
+    max-width: 800px;
+}
+
+h1 {
+    font-size: 28px;
+}
+
+.product-description {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.price {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.new-price {
+    color: #ff5722;
+}
+
+.discount-badge {
+    display: inline-block;
+    background-color: #ff0066;
+    color: white;
+    padding: 5px 10px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.product-image {
+    margin-top: 20px;
+    max-width: 300px;
+    border-radius: 10px;
+}
+
+.category-label {
+    font-size: 16px;
+    margin-top: 20px;
+    color: #555;
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    {% block title %}
+        <title> Responsive Navbar</title>
+    {% endblock %}
+
+    <link href="{% static 'styles.css' %}" rel="stylesheet"/>
+    {% block special_css %}
+    {% endblock %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+</head>
+<body>
+
+<div class="page-header">
+    <div class="logo">
+        <a href="{% url 'home' %}">
+            <img src="https://magnum.kz/_nuxt/img/logo.a7361c3.svg" alt="Magnum Logo">
+        </a>
+    </div>
+
+        <div id="navigation-bar" class="nav-bar">
+            <a href="#">О нас</a>
+            <a href="{% url 'leave_request' %}">Вакансии</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}">Профиль</a>
+            {% endif %}
+            <a href="{% url 'cart' %}">Корзина</a>
+
+        </div>
+    <div class="search-bar" style="display: flex;
+  align-items: center;
+  justify-content: center;">
+    <form class="form-inline my-2 my-lg-0" action="{% url 'product_search' %}" method="GET">
+        <div class="search-bar" style="display: flex;">
+
+            <input class="form-control mr-sm-2" type="search" name="search" placeholder="Поиск товаров..."
+                   value="{{ search_text }}" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Искать</button>
+        </div>
+    </form>
+    </div>
+<div class="user-panel">
+    {% if user.is_authenticated %}
+        <form action="{% url 'accounts:logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-link nav-link">
+                Выйти
+            </button>
+        </form>
+    {% else %}
+        <form action="{% url 'accounts:login' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-link nav-link">
+                Логин
+            </button>
+        </form>
+    {% endif %}
+</div>
+</div>
+<div class="main content">
+    {% block content %}
+        <p>MAIN CONTENT BLOCK</p>
+    {% endblock %}
+
+</div>
+
+</body>
+</html>
