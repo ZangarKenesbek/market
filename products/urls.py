@@ -23,5 +23,7 @@ urlpatterns = [
     path('cart/increase/<int:product_id>/', views.increase_quantity, name='increase_quantity'),
     path('cart/decrease/<int:product_id>/', views.decrease_quantity, name='decrease_quantity'),
     path('submit_cart/', views.submit_cart, name='submit_cart'),
+    path('predict/<int:product_id>/', views.predict_sales, name='predict_sales'),
+    path('predict_all/', views.predict_all_sales, name='predict_all')
 
 ]

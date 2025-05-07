@@ -5,9 +5,9 @@
 /* VARIABLE DEFINITIONS */
 html[data-theme="light"],
 :root {
-    --primary: #E6007E;
-    --secondary: #D4006E;
-    --accent: #FFD700;
+    --primary: #79aec8;
+    --secondary: #417690;
+    --accent: #f5dd5d;
     --primary-fg: #fff;
 
     --body-fg: #333;

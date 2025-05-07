@@ -161,33 +161,10 @@ MEDIA_URL = f"http://{os.getenv('AWS_S3_CUSTOM_DOMAIN', 'localhost:9000/my-bucke
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_DIRS = [BASE_DIR / "../static"]
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-"""
-The correct structure:
-    WebApp-
-            .venv
-            ecommerce
-            media
-            products-
-                    migrations-
-                    templates-
-                    __init__.py
-                    admin.py
-                    apps.py
-                    models.py
-                    tests.py
-                    urls.py
-                    views.py
-            static-
-                    styles.html
-            templates
-                    base.html
-            db.sqlite3
-            manage.py
-"""

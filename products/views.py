@@ -6,7 +6,9 @@ from django.utils.timezone import now
 from .forms import VacancyForm, CommentForm, ProductForm, CategoryForm
 from .models import Comment, Cart, CartItem, Order, OrderItem
 from .models import Product, Category
-
+import pickle
+import pandas as pd
+from django.http import JsonResponse
 
 def leave_request(request):
     if request.method == "POST":
@@ -215,4 +217,102 @@ def submit_cart(request):
     cart_items.delete()
 
     return render(request, 'ecommerce/thank_you.html')
+def predict_sales(request, product_id):
+    from products.models import OrderItem
 
+    # загрузка модели
+    with open('ml_model.pkl', 'rb') as f:
+        model = pickle.load(f)
+
+    today = pd.Timestamp.now().dayofyear
+
+    # передаём два признака: [day, product_id]
+    predicted_quantity = model.predict([[today, product_id]])[0]
+
+    return JsonResponse({
+        'product_id': product_id,
+        'predicted_quantity': round(predicted_quantity),
+    })
+
+
+def predict_sales(request, product_id):
+    import os
+    from django.conf import settings
+
+    model_path = os.path.join(settings.BASE_DIR, 'ml_models', f'model_{product_id}.pkl')
+
+    if not os.path.exists(model_path):
+        return JsonResponse({
+            'product_id': product_id,
+            'error': 'Model not found for this product'
+        }, status=404)
+
+    with open(model_path, 'rb') as f:
+        model = pickle.load(f)
+
+    today = pd.Timestamp.now().dayofyear
+
+    try:
+        predicted_quantity = model.predict([[today]])[0]
+    except Exception as e:
+        return JsonResponse({
+            'product_id': product_id,
+            'error': str(e)
+        }, status=500)
+
+    return JsonResponse({
+        'product_id': product_id,
+        'predicted_quantity': round(predicted_quantity)
+    })
+
+
+def get_order_data():
+    data = []
+    order_items = OrderItem.objects.select_related('order', 'product')
+    for item in order_items:
+        data.append({
+            'product_id': item.product.id,
+            'product_name': item.product.name,
+            'quantity': item.quantity,
+            'date': item.order.created_at.date()  # <-- используем дату из Order
+        })
+    return pd.DataFrame(data)
+from django.http import JsonResponse
+import os
+import pickle
+import pandas as pd
+from django.conf import settings
+from products.models import Product
+
+def predict_all_sales(request):
+    today = pd.Timestamp.now().dayofyear
+    result = []
+
+    for product in Product.objects.all():
+        model_path = os.path.join(settings.BASE_DIR, 'ml_models', f'model_{product.id}.pkl')
+
+        if not os.path.exists(model_path):
+            result.append({
+                'product_id': product.id,
+                'product_name': product.name,
+                'error': 'Model not found'
+            })
+            continue
+
+        try:
+            with open(model_path, 'rb') as f:
+                model = pickle.load(f)
+            predicted_quantity = model.predict([[today]])[0]
+            result.append({
+                'product_id': product.id,
+                'product_name': product.name,
+                'predicted_quantity': round(predicted_quantity)
+            })
+        except Exception as e:
+            result.append({
+                'product_id': product.id,
+                'product_name': product.name,
+                'error': str(e)
+            })
+
+    return JsonResponse(result, safe=False)
