@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+  .analysis-container {
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    font-family: Arial, sans-serif;
+  }
+
+  .analysis-container h1, .analysis-container h2 {
+    color: #e4095a;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .analysis-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  .analysis-table th, .analysis-table td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: center;
+    font-size: 15px;
+  }
+
+  .analysis-table th {
+    background-color: #f7f7f7;
+    color: #333;
+    font-weight: 600;
+  }
+
+  .analysis-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .error-text {
+    color: red;
+    font-weight: bold;
+  }
+
+  .back-button {
+    display: block;
+    margin: 30px auto 0 auto;
+    background-color: #e4095a;
+    color: white;
+    font-size: 16px;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  .back-button:hover {
+    background-color: #c1074c;
+  }
+</style>
+
+<div class="analysis-container">
+  <h1>Результаты анализа данных</h1>
+
+  <h2>Прогноз продаж на сегодня</h2>
+  <table class="analysis-table">
+    <tr>
+      <th>ID продукта</th>
+      <th>Название</th>
+      <th>Прогноз</th>
+    </tr>
+    {% for item in predictions %}
+    <tr>
+      <td>{{ item.product_id }}</td>
+      <td>{{ item.product_name }}</td>
+      <td>
+        {% if item.predicted_quantity %}
+          {{ item.predicted_quantity }}
+        {% else %}
+          <span class="error-text">Ошибка: {{ item.error }}</span>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <a href="{% url 'profile' %}" class="back-button">Назад в профиль</a>
+</div>
+{% endblock %}

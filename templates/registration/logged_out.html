@@ -2,9 +2,59 @@
 {% load i18n %}
 
 {% block content %}
+<style>
+  .page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f3f4f6;
+  }
 
-<p>{% translate "Thanks for spending some quality time with the web site today." %}</p>
+  .message-box {
+    background-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 400px;
+    text-align: center;
+  }
 
-<p><a href="{% url 'accounts:login' %}">{% translate 'Log in again' %}</a></p>
+  .message-box h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 16px;
+  }
 
+  .message-box p {
+    color: #4b5563;
+    margin-bottom: 24px;
+  }
+
+  .login-button {
+    display: inline-block;
+    background-color: #e4095a;
+    color: white;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .login-button:hover {
+    background-color: #d30a54;
+  }
+</style>
+
+<div class="page-container">
+  <div class="message-box">
+    <h1>{% translate "До встречи!" %}</h1>
+    <p>{% translate "Надеемся увидеть вас снова в ближайшее время!" %}</p>
+    <a href="{% url 'accounts:login' %}" class="login-button">
+      {% translate 'Войти' %}
+    </a>
+  </div>
+</div>
 {% endblock %}

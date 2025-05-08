@@ -1,65 +1,97 @@
-body {
-
-    font-family: Arial, sans-serif;
-    margin: 20px;
+nav {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 15px;
+    font-size: 16px;
     color: #333;
 }
 
-nav {
-    padding: 40px;
-    font-size: 14px;
-    color: gray;
-    margin-bottom: 20px;
-}
 
-.product-container {
-    padding: 40px;
-    max-width: 800px;
-}
+        .product-container {
+            position: relative;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            max-width: 1000px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+        }
 
-h1 {
-    font-size: 28px;
-}
+        .discount-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #c1074c;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            z-index: 10;
+        }
 
-.product-description {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 20px;
-}
+        .product-container h1 {
+            color: #e4095a;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
 
-.price {
-    font-size: 24px;
-    font-weight: bold;
-}
+        .price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-.old-price {
-    text-decoration: line-through;
-    color: #888;
-    font-size: 18px;
-    margin-right: 10px;
-}
+        .new-price {
+            color: #e4095a;
+        }
 
-.new-price {
-    color: #ff5722;
-}
+        .product-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
 
-.discount-badge {
-    display: inline-block;
-    background-color: #ff0066;
-    color: white;
-    padding: 5px 10px;
-    font-size: 18px;
-    border-radius: 5px;
-}
+        .category-label {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
 
-.product-image {
-    margin-top: 20px;
-    max-width: 300px;
-    border-radius: 10px;
-}
+        .product-actions {
+            margin: 20px 0;
+        }
 
-.category-label {
-    font-size: 16px;
-    margin-top: 20px;
-    color: #555;
-}
+        .btn-primary {
+            background-color: #e4095a;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #c1074c;
+        }
+
+        .edit-btn {
+            margin-left: 10px;
+            color: #555;
+            text-decoration: underline;
+        }
+
+        .review {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        hr {
+            margin: 30px 0;
+        }
+    

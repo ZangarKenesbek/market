@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     {% block title %}
-        <title> Responsive Navbar</title>
+        <title>Магнум</title>
     {% endblock %}
 
     <link href="{% static 'styles.css' %}" rel="stylesheet"/>
@@ -27,7 +27,6 @@
     </div>
 
         <div id="navigation-bar" class="nav-bar">
-            <a href="#">О нас</a>
             <a href="{% url 'leave_request' %}">Вакансии</a>
             {% if user.is_authenticated %}
                 <a href="{% url 'profile' %}">Профиль</a>

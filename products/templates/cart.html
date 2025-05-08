@@ -2,40 +2,146 @@
 {% load static %}
 
 {% block content %}
-<h2>Корзина</h2>
+<style>
+    .cart-container {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 30px;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+        font-family: Arial, sans-serif;
+    }
 
-{% if cart_items %}
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Товар</th>
-                <th>Цена</th>
-                <th>Количество</th>
-                <th>Итого</th>
-                <th>Действия</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in cart_items %}
+    .cart-container h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #e4095a;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        padding: 14px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        color: #333;
+        font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+        background-color: #fafafa;
+    }
+
+    .btn {
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        margin: 5px;
+        display: inline-block;
+    }
+
+    .btn-outline-secondary {
+        background-color: white;
+        border: 1px solid #ccc;
+        color: #333;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #eee;
+    }
+
+    .btn-success {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+    }
+
+    .btn-success:hover {
+        background-color: #45a049;
+    }
+
+    .btn-danger {
+        background-color: #e4095a;
+        color: white;
+        border: none;
+    }
+
+    .btn-danger:hover {
+        background-color: #c1074c;
+    }
+
+    .empty-cart-message {
+        text-align: center;
+        font-size: 18px;
+        color: #666;
+        margin-top: 50px;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        flex-wrap: wrap;
+    }
+
+    form {
+        display: inline-block;
+        margin-right: 10px;
+    }
+</style>
+
+<div class="cart-container">
+    <h2>Корзина</h2>
+    
+    {% if cart_items %}
+        <table>
+            <thead>
                 <tr>
-                    <td>{{ item.product.name }}</td>
-                    <td>{{ item.product.total_price }} ₸</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>{{ item.total_price }} ₸</td>
-                    <td>
-                        <a href="{% url 'decrease_quantity' item.product.id %}" class="btn btn-outline-secondary btn-sm">➖</a>
-                        <a href="{% url 'increase_quantity' item.product.id %}" class="btn btn-outline-secondary btn-sm">➕</a>
-                    </td>
+                    <th>Товар</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Итого</th>
+                    <th>Действия</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-<form action="{% url 'submit_cart' %}" method="post">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-success">Отправить заказ</button>
-</form>
-    <a href="{% url 'clear_cart' %}" class="btn btn-danger">Очистить корзину</a>
-{% else %}
-    <p>Ваша корзина пуста.</p>
-{% endif %}
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.product.total_price }} ₸</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.total_price }} ₸</td>
+                        <td>
+                            <a href="{% url 'decrease_quantity' item.product.id %}" class="btn btn-outline-secondary">➖</a>
+                            <a href="{% url 'increase_quantity' item.product.id %}" class="btn btn-outline-secondary">➕</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="actions">
+            <form action="{% url 'submit_cart' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success">Отправить заказ</button>
+            </form>
+
+            <a href="{% url 'clear_cart' %}" class="btn btn-danger">Очистить корзину</a>
+        </div>
+    {% else %}
+        <p class="empty-cart-message">Ваша корзина пуста.</p>
+    {% endif %}
+</div>
 {% endblock %}

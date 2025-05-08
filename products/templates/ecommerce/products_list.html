@@ -7,20 +7,21 @@
     <link href="{% static 'products_list.css' %}" rel="stylesheet"/>
 {% endblock %}
 {% block content %}
-    <div class="product-list">
-        <div class="categories">
+    <div class="categories">
             {% if search %}
                 <a href="/" class="category-btn {% if not category_filter %}selected{% endif %}">
                     Все товары
                 </a>
             {% endif %}
             {% for category in categories %}
-                <a href="?category={{ category.category }}"
-                   class="category-btn {% if category.category == category_filter %}selected{% endif %}">
-                    {{ category.category }}
+                <a href="?category={{ category.name }}"
+                   class="category-btn {% if category.name == category_filter %}selected{% endif %}">
+                    {{ category.name }}
                 </a>
             {% endfor %}
         </div>
+    <div class="product-list">
+        
 
         {% for product in products %}
             <div class="product-card">
@@ -29,13 +30,12 @@
                     {% if product.image %}
                         <img src="{{ product.image.url }}" alt="{{ product.name }}">
                     {% endif %}
-                    <p>{{ product.name }}</p>
+                    <h6>{{ product.name }}</h6>
 
                     <p class="old-price">{{ product.price }} тг</p>
                     <p class="new-price">{{ product.total_price|floatformat:0 }} тг</p>
                 </a>
 
-                <!-- Кнопка/иконка корзины -->
                 <div class="add-to-cart">
                     <a href="{% url 'add_to_cart' product.id %}">
                         <img src="{% static 'icons/cart-icon.png' %}" alt="Добавить в корзину" class="cart-icon">

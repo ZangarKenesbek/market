@@ -3,15 +3,17 @@
 
 {% block content %}
 <style>
-  /* Центрируем всю форму */
+body{
+                background-color: #f9fafb;
+
+}
   #content-main {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Занимает всю высоту экрана */
+    height: 100vh;
   }
 
-  /* Стиль для контейнера формы */
   #login-container {
     width: 350px;
     padding: 20px;
@@ -21,7 +23,6 @@
     text-align: center;
   }
 
-  /* Поля формы */
   .form-row {
     margin-bottom: 15px;
   }
@@ -35,7 +36,9 @@
     font-size: 16px;
   }
 
-  /* Стили для кнопки входа */
+  .submit-row{
+      padding-top: 20px;
+  }
   .submit-row input {
     width: 100%;
     padding: 10px;
@@ -51,7 +54,6 @@
     background: #e4095a;
   }
 
-  /* Ссылка на восстановление пароля */
   .password-reset-link {
     margin-top: 10px;
   }
@@ -68,7 +70,7 @@
 
 <div id="content-main">
   <div id="login-container">
-    <h2>{% translate 'Log in' %}</h2>
+    <h2>{% translate 'Логин' %}</h2>
 
     {% if form.non_field_errors %}
       {% for error in form.non_field_errors %}
@@ -88,12 +90,11 @@
     <form action="{% url 'accounts:login' %}" method="post" id="login-form">
       {% csrf_token %}
       <div class="form-row">
-        {{ form.username.label_tag }}
+        <p>{% translate 'Никнейм' %}</p>
         {{ form.username }}
       </div>
       <div class="form-row">
-
-        {{ form.password.label_tag }}
+        <p>{% translate 'Пароль' %}</p>
         {{ form.password }}
         <input type="hidden" name="next" value="{{ next }}">
       </div>
@@ -110,9 +111,8 @@
         <a href="{% url 'registration' %}">
             {% translate 'Зарегестрироваться' %}
         </a>
-
       <div class="submit-row">
-        <input type="submit" value="{% translate 'Log in' %}">
+        <input type="submit" value="{% translate 'Войти' %}">
       </div>
     </form>
   </div>

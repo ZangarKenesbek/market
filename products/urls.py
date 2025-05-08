@@ -24,6 +24,8 @@ urlpatterns = [
     path('cart/decrease/<int:product_id>/', views.decrease_quantity, name='decrease_quantity'),
     path('submit_cart/', views.submit_cart, name='submit_cart'),
     path('predict/<int:product_id>/', views.predict_sales, name='predict_sales'),
-    path('predict_all/', views.predict_all_sales, name='predict_all')
+    path('predict_all/', views.predict_all_sales, name='predict_all'),
+    path('analyze/', views.analyze_products_view, name='analyze_products'),
+    path('orders/', views.order_history, name='order_history'),
 
 ]

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <style>
+        .guest-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 70vh;
+            background-color: #f9fafb;
+        }
+
+        .guest-message-box {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .guest-message-box h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #111827;
+        }
+
+        .guest-message-box p {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .login-link {
+            display: inline-block;
+            background-color: #e4095a;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-link:hover {
+            background-color: #c1074c;
+        }
+    </style>
+
+    <div class="guest-container">
+        <div class="guest-message-box">
+            <h2>{% translate "Вы не авторизованы." %}</h2>
+            <p>{% translate "Пожалуйста, войдите в аккаунт, чтобы увидеть свою корзину." %}</p>
+            <a href="{% url 'accounts:login' %}" class="login-link">{% translate "Войти" %}</a>
+        </div>
+    </div>
+{% endblock %}

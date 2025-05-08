@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">История заказов</h2>
+
+    {% if orders %}
+        <div class="order-list">
+            {% for order in orders %}
+                <div class="card mb-3 shadow-sm">
+                    <div class="card-header bg-light">
+                        <strong>Заказ #{{ order.id }}</strong>
+                        <span class="text-muted float-end">{{ order.created_at|date:"d.m.Y H:i" }}</span>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% for item in order.orderitem_set.all %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>{{ item.product.name }}</span>
+                                <span class="badge bg-secondary rounded-pill">{{ item.quantity }} шт.</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            У вас пока нет заказов.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,15 +1,88 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block title %}
     <title>Форма Вакансии</title>
 {% endblock %}
+
 {% block content %}
-    <div class="container mt-5">
-        <h2>Заполните форму вакансии</h2>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Отправить</button>
-        </form>
-    </div>
+<style>
+    body{
+                    background-color: #f9fafb;
+
+    }
+    .vacancy-form-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+        font-family: Arial, sans-serif;
+    }
+
+    .vacancy-form-container h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #e4095a;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    form p {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    textarea,
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-sizing: border-box;
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .vacancy-form-submit {
+        background-color: #e4095a;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 10px;
+    }
+
+    .vacancy-form-submit:hover {
+        background-color: #c1074c;
+    }
+</style>
+
+<div class="vacancy-form-container">
+    <h2>Заполните форму вакансии</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="vacancy-form-submit">Отправить</button>
+    </form>
+</div>
 {% endblock %}
