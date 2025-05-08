@@ -9,6 +9,6 @@ def get_order_data():
             'product_id': item.product.id,
             'product_name': item.product.name,
             'quantity': item.quantity,
-            'date': item.order.created_at,  # если поле есть
+            'date': item.order.created_at,
         })
     return pd.DataFrame(data)

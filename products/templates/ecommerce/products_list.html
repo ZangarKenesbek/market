@@ -21,18 +21,20 @@
             {% endfor %}
         </div>
     <div class="product-list">
-        
-
         {% for product in products %}
             <div class="product-card">
-                <div class="discount-badge">-{{ product.discount }}%</div>
+                {% if product.discount > 0 %}
+                    <div class="discount-badge">-{{ product.discount }}%</div>
+                {% endif %}
                 <a href="/product/{{ product.id }}/" class="product-name">
                     {% if product.image %}
                         <img src="{{ product.image.url }}" alt="{{ product.name }}">
                     {% endif %}
                     <h6>{{ product.name }}</h6>
+                    {% if product.discount > 0 %}
+                      <p class="old-price">{{ product.price }} тг</p>
+                    {% endif %}
 
-                    <p class="old-price">{{ product.price }} тг</p>
                     <p class="new-price">{{ product.total_price|floatformat:0 }} тг</p>
                 </a>
 
